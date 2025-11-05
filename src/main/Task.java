@@ -1,4 +1,5 @@
 package src.main;
+
 import java.util.Date;
 
 public class Task {
@@ -42,7 +43,7 @@ public class Task {
         return date;
     }
 
-    public States getStates(){
+    public States getStates() {
         return statesTask;
     }
 
@@ -70,20 +71,20 @@ public class Task {
         this.date = date;
     }
 
-    public void setStates(States statesTask){
+    public void setStates(States statesTask) {
         this.statesTask = statesTask;
     }
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", priority=" + priority +
-                ", date=" + date +
-                ", State Task=" + statesTask +
-                '}';
+        return "{\n" +
+                "  \"id\": " + id + ",\n" +
+                "  \"title\": \"" + title + "\",\n" +
+                "  \"description\": \"" + description + "\",\n" +
+                "  \"priority\": \"" + priority + "\",\n" +
+                "  \"date\": \"" + date + "\",\n" +
+                "  \"stateTask\": \"" + statesTask + "\"\n" +
+                "}";
     }
 
 }
