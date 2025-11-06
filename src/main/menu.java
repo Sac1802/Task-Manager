@@ -13,7 +13,7 @@ public class menu {
     }
 
     public void showMenu() {
-        int election = 0;
+        String election = " ";
         do {
             System.out.println("~~~~~~Task Manager in Terminal~~~~~~");
             System.out.println("1. Add new Task");
@@ -23,10 +23,13 @@ public class menu {
             System.out.println("5. Delete Task");
             System.out.println("6. Exit");
             System.out.print("Enter your option: ");
-            election = scanner.nextInt();
-            scanner.nextLine();
-            optionUser(election);
-        } while (election != 6);
+            election = scanner.nextLine();
+            if (validateOption(election)) {
+
+                int parcerValue = Integer.parseInt(election);
+                optionUser(parcerValue);
+            }
+        } while (!election.equals("6"));
         scanner.close();
     }
 
@@ -54,7 +57,7 @@ public class menu {
             default:
                 break;
         }
-        
+
     }
 
     private void addTak() {
@@ -99,13 +102,14 @@ public class menu {
     }
 
     private Date convertStringToDate(String date) {
+        if (date == null || date.trim().isEmpty())
+            return new java.sql.Date(new java.util.Date().getTime());
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             java.util.Date utilDate = format.parse(date);
             return new java.sql.Date(utilDate.getTime());
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            return new java.sql.Date(new java.util.Date().getTime());
         }
     }
 
@@ -115,7 +119,7 @@ public class menu {
             return value;
         } catch (Exception e) {
             e.printStackTrace();
-            return 'n';
+            return 'L';
         }
     }
 
@@ -124,6 +128,28 @@ public class menu {
             new ProcessBuilder("clear").inheritIO().start().waitFor();
         } catch (Exception e) {
             System.out.println("No se pudo limpiar la consola");
+        }
+    }
+
+    private boolean validateOption(String option) {
+        if (option.isEmpty() || option.isBlank()) {
+            clearConsole();
+            System.out.println("Please Enter a validate option");
+            return false;
+        }
+        try {
+            int parserValue = Integer.parseInt(option);
+            if (parserValue == 0 || parserValue > 6) {
+                clearConsole();
+                System.out.println("Please Enter a validate option");
+                return false;
+            }
+
+            return true;
+        } catch (Exception e) {
+            clearConsole();
+            System.out.println("Please Enter a validate option");
+            return false;
         }
     }
 }
